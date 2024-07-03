@@ -20,6 +20,10 @@ class Customer(db.Model):
      # Relationship
     reviews = db.relationship('Review', back_populates='customer')
 
+    # Association Proxy
+    items = association_proxy('reviews', 'item',
+                                 creator=lambda item_obj: Review(item=item_obj))
+
     def __repr__(self):
         return f'<Customer {self.id}, {self.name}>'
 
